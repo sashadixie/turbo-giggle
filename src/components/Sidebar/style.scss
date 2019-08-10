@@ -1,3 +1,25 @@
+@import '../shared/globals';
+
 .sidebar {
-  background: grey;
+  background: $color-gray-900;
+  height: calc(100vh - 64px);
+  padding: 10px 15px;
+  min-width: 200px;
+
+  li {
+    display: flex;
+    align-items: center;
+    transition: 0.15s all;
+    color: $color-gray-500;
+    margin-bottom: 10px;
+
+    &:hover {
+      cursor: pointer;
+      color: $color-gray-200;
+    }
+
+    span {
+      margin-left: 10px;
+    }
+  }
 }

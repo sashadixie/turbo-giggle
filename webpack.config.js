@@ -1,12 +1,12 @@
-const path = require("path");
+const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: './src/index.js',
   output: {
-    path: path.join(__dirname, "/dist"),
-    filename: "index_bundle.js"
+    path: path.join(__dirname, '/dist'),
+    filename: 'index_bundle.js',
   },
   resolve: {
     extensions: ['.js', '.jsx'],
@@ -17,20 +17,20 @@ module.exports = {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader']
-        })
+          use: ['css-loader', 'sass-loader'],
+        }),
       },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ["babel-loader", "eslint-loader"]
+        use: ['babel-loader', 'eslint-loader'],
       },
-    ]
+    ],
   },
   plugins: [
     new ExtractTextPlugin('style.css'),
     new HtmlWebpackPlugin({
-        template: "./src/index.html"
-      })
-  ]
+      template: './src/index.html',
+    }),
+  ],
 };

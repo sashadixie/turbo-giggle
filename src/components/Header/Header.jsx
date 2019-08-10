@@ -4,18 +4,17 @@ import './style.scss';
 class Header extends Component {
   render() {
     return (
-      <header>
+      <header className="header">
         <nav>
-          <ul className="sidebar">
-            <li>User</li>
-            <li>Settings</li>
-            <li>History</li>
-          </ul>
+          <div className="logo">
+            <i className="material-icons">menu</i>
+            <span>Tasks</span>
+          </div>
+          <i className="material-icons">person</i>
         </nav>
       </header>
-
     );
   }
 }
 
-export default Sidebar;
+export default Header;
