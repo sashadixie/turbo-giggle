@@ -1,8 +1,9 @@
-import React, { Component } from "react";
-import Sidebar from "../Sidebar/Sidebar";
-import Header from "../Header/Header";
-import Board from "../Board/Board";
-import List from "../List/List";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Sidebar from '../Sidebar/Sidebar';
+import Header from '../Header/Header';
+import Board from '../Board/Board';
+import List from '../List/List';
 import './style.scss';
 
 const MENU_ITEMS = [
@@ -31,74 +32,76 @@ class App extends Component {
     });
   }
 
-  onDragEnd = result => {
-    const { destination, source, draggableId } = result
+  onDragEnd = (result) => {
+    const { destination, source, draggableId } = result;
+    const { columns } = this.state;
 
     if (!destination) {
-      return
+      return;
     }
 
     if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
+      destination.droppableId === source.droppableId
+      && destination.index === source.index
     ) {
-      return
+      return;
     }
 
-    const start = this.state.columns[source.droppableId]
-    const finish = this.state.columns[destination.droppableId]
+    const start = columns[source.droppableId];
+    const finish = columns[destination.droppableId];
 
     if (start === finish) {
-      const newTaskIds = Array.from(start.taskIds)
-      newTaskIds.splice(source.index, 1)
-      newTaskIds.splice(destination.index, 0, draggableId)
+      const newTaskIds = Array.from(start.taskIds);
+      newTaskIds.splice(source.index, 1);
+      newTaskIds.splice(destination.index, 0, draggableId);
 
       const newColumn = {
         ...start,
-        taskIds: newTaskIds
-      }
+        taskIds: newTaskIds,
+      };
 
       const newState = {
         ...this.state,
         columns: {
-          ...this.state.columns,
-          [newColumn.id]: newColumn
-        }
-      }
+          ...columns,
+          [newColumn.id]: newColumn,
+        },
+      };
 
-      this.setState(newState)
-      return
+      this.setState(newState);
+      return;
     }
 
-    const startTaskIds = Array.from(start.taskIds)
-    startTaskIds.splice(source.index, 1)
+    const startTaskIds = Array.from(start.taskIds);
+    startTaskIds.splice(source.index, 1);
     const newStart = {
       ...start,
-      taskIds: startTaskIds
-    }
+      taskIds: startTaskIds,
+    };
 
-    const finishTaskIds = Array.from(finish.taskIds)
-    finishTaskIds.splice(destination.index, 0, draggableId)
+    const finishTaskIds = Array.from(finish.taskIds);
+    finishTaskIds.splice(destination.index, 0, draggableId);
     const newFinish = {
       ...finish,
-      taskIds: finishTaskIds
-    }
+      taskIds: finishTaskIds,
+    };
 
     const newState = {
       ...this.state,
       columns: {
-        ...this.state.columns,
+        ...columns,
         [newStart.id]: newStart,
-        [newFinish.id]: newFinish
-      }
-    }
-    this.setState(newState)
+        [newFinish.id]: newFinish,
+      },
+    };
+    this.setState(newState);
   }
 
   render() {
-    const { mode, columnOrder, columns, tasks } = this.state;
-    const changeMode = (e) => this.changeMode(e);
-    console.log(tasks)
+    const {
+      mode, columnOrder, columns, tasks,
+    } = this.state;
+    const changeMode = e => this.changeMode(e);
 
     return (
       <div>
@@ -107,25 +110,29 @@ class App extends Component {
           <Sidebar />
           <div className="content">
             <div className="switcher">
-            {MENU_ITEMS.map(({name, icon, title}) => {
-              return (
-                <button key={name}
+              {MENU_ITEMS.map(({ name, icon, title }) => (
+                <button
+                  type="button"
+                  key={name}
                   name={name}
                   onClick={changeMode}
-                  className={mode === name ? 'active' : ''}>
+                  className={mode === name ? 'active' : ''}
+                >
                   <i className="material-icons">{icon}</i>
                   <span>{title}</span>
                 </button>
-              );
-            })}
+              ))}
             </div>
             <div className="view">
-              {mode === 'board' ?
-              <Board
-                columnOrder={columnOrder}
-                columns={columns}
-                tasks={tasks}
-                onDragEnd={this.onDragEnd} /> : <List />}
+              {mode === 'board'
+                ? (
+                  <Board
+                    columnOrder={columnOrder}
+                    columns={columns}
+                    tasks={tasks}
+                    onDragEnd={this.onDragEnd}
+                  />
+                ) : <List />}
             </div>
           </div>
         </div>
@@ -135,3 +142,7 @@ class App extends Component {
 }
 
 export default App;
+
+App.propTypes = {
+  data: PropTypes.object, //eslint-disable-line
+};

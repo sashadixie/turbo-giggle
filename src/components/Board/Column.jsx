@@ -1,49 +1,36 @@
-import React, {Component} from 'react';
-import styled from 'styled-components';
-import Task from './Task';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Droppable } from 'react-beautiful-dnd';
-
-const Container = styled.div`
-  margin: 8px;
-  border: 1px solid lightgrey;
-  border-radius: 2px;
-  width: 220px;
-
-  display: flex;
-  flex-direction: column;
-`;
-const Title = styled.h3`
-  padding: 8px;
-`;
-const TaskList = styled.div`
-  padding: 8px;
-  transition: background-color 0.2s ease;
-  background-color: ${props =>
-    props.isDraggingOver ? 'skyblue' : 'white'}
-  flex-grow: 1;
-  min-height: 100px;
-`;
+import Task from './Task';
+import './style.scss';
 
 export default class Column extends Component {
   render() {
+    const { column: { title, id, end }, tasks } = this.props;
     return (
-      <Container>
-        <Title>{this.props.column.title}</Title>
-        <Droppable droppableId={this.props.column.id} type="TASK">
+      <div className="column">
+        <div className="column-header">{title}</div>
+        <Droppable droppableId={id} type="TASK">
           {(provided, snapshot) => (
-            <TaskList
+            <div
+              className="column-tasklist"
               ref={provided.innerRef}
               {...provided.droppableProps}
               isDraggingOver={snapshot.isDraggingOver}
             >
-              {this.props.tasks.map((task, index) => (
-                <Task key={task.id} task={task} index={index} />
+              {tasks.map((task, index) => (
+                <Task key={task.id} task={task} index={index} isOver={end} />
               ))}
               {provided.placeholder}
-            </TaskList>
+            </div>
           )}
         </Droppable>
-      </Container>
-    )
+      </div>
+    );
   }
+}
+
+Column.propTypes = {
+  column: PropTypes.object,
+  tasks: PropTypes.object,
 };

@@ -1,39 +1,38 @@
-import React, {Component} from 'react';
-import styled from 'styled-components';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
-
-const Container = styled.div`
-  border: 1px solid lightgrey;
-  border-radius: 2px;
-  padding: 8px;
-  margin-bottom: 8px;
-  transition: background-color 0.2s ease;
-  background-color: ${props =>
-    props.isDragDisabled
-      ? 'lightgrey'
-      : props.isDragging
-        ? 'lightgreen'
-        : 'white'};
-`;
+import classnames from 'classnames';
 
 export default class Task extends Component {
   render() {
+    const { task, index, isOver } = this.props;
+
     return (
       <Draggable
-        draggableId={this.props.task.id}
-        index={this.props.index}
+        draggableId={task.id}
+        index={index}
       >
         {(provided, snapshot) => (
-          <Container
+          <div
+            className={classnames('task', {
+              dragging: snapshot.isDragging,
+              isOver,
+            })}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
             isDragging={snapshot.isDragging}
           >
-            {this.props.task.content}
-          </Container>
+            {task.content}
+          </div>
         )}
       </Draggable>
-    )
+    );
   }
+}
+
+Task.propTypes = {
+  index: PropTypes.number,
+  task: PropTypes.object,
+  isOver: PropTypes.bool,
 };

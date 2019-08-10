@@ -1,1 +1,47 @@
 @import '../shared/globals';
+
+.column {
+  margin: 8px;
+  border: 1px solid $color-gray-800;
+  border-top: none;
+  border-bottom: none;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  
+  &:first-of-type,
+  &:last-of-type {
+    border: none;
+  }
+
+  .column-header {
+    text-align: center;
+    padding: 10px 10px;
+  }
+
+  .column-tasklist {
+    padding: 8px;
+    transition: background-color 0.2s ease;
+    background-color: $color-white;
+    flex-grow: 1;
+    min-height: 100px;
+  }
+
+  .task {
+    border-radius: 2px;
+    padding: 8px;
+    margin-bottom: 8px;
+    transition: background-color 0.2s ease;
+    background-color: $color-white;
+    @include gmd-1;
+
+    &.dragging {
+      background-color: $color-gray-200;
+    }
+
+    &.isOver {
+      text-decoration: line-through;
+      color: $color-gray-500;
+    }
+  }
+}
