@@ -132,7 +132,14 @@ class App extends Component {
                     tasks={tasks}
                     onDragEnd={this.onDragEnd}
                   />
-                ) : <List />}
+                ) : (
+                  <List
+                    columnOrder={columnOrder}
+                    columns={columns}
+                    tasks={tasks}
+                    onDragEnd={this.onDragEnd}
+                  />
+                )}
             </div>
           </div>
         </div>
