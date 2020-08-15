@@ -26,7 +26,7 @@ const Board = ({
 Board.propTypes = {
   onDragEnd: PropTypes.func,
   columnOrder: PropTypes.array,
-  columns: PropTypes.array,
+  columns: PropTypes.object,
   tasks: PropTypes.object,
 };
 

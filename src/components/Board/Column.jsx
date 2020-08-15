@@ -32,5 +32,5 @@ export default class Column extends Component {
 
 Column.propTypes = {
   column: PropTypes.object,
-  tasks: PropTypes.object,
+  tasks: PropTypes.array,
 };

@@ -1,70 +1,13 @@
 @import "../shared/globals";
 
-.app-container {
-  display: flex;
+body {
+  font-family: Roboto;
+}
 
-  .switcher {
-    display: flex;
-
-    button {
-      display: flex;
-      align-items: center;
-      background: $color-white;
-      cursor: pointer;
-      border-color: $color-gray-600;
-      color: $color-gray-700;
-      font-size: 20px;
-      padding: 10px 15px;
-      border-width: 1px;
-
-      &.active {
-        background: $color-blue-gray-50;
-      }
-
-      &:first-of-type {
-        border-radius: $border-radius 0 0 $border-radius;
-        border-right: none;
-      }
-
-      &:last-of-type {
-        border-radius: 0 $border-radius $border-radius 0;
-      }
-
-      span {
-        font-family: Roboto;
-      }
-
-      i {
-        margin-right: 5px;
-      }
-    }
-  }
-
-  .view {
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-  }
-
-  .content {
-    width: 100%;
-    padding: 10px 15px;
-    overflow-y: scroll;
-    height: calc(100vh - 64px);
-    overflow-x: hidden;
-
-    &::-webkit-scrollbar {
-      width: 4px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: $color-gray-400; 
-      border-radius: 5px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      border-radius: 5px;
-      background: $color-gray-600;
-    }
-  }
+#root {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  grid-template-rows: auto;
+  justify-items: stretch;
+  align-items: stretch;
 }
